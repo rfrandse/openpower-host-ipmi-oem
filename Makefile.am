@@ -3,7 +3,7 @@ liboemhandler_LTLIBRARIES = liboemhandler.la
 
 liboemhandler_la_SOURCES = oemhandler.cpp \
                            host-interface.cpp \
-                           local_users.cpp \
+                           ldap.cpp \
                            org/open_power/OCC/Metrics/error.cpp
 
 BUILT_SOURCES = org/open_power/OCC/Metrics/error.hpp \
@@ -13,6 +13,8 @@ liboemhandler_la_LDFLAGS = $(SYSTEMD_LIBS)\
                            $(SDBUSPLUS_LIBS) \
                            $(OPENPOWER_DBUS_INTERFACES_LIBS) \
                            $(PHOSPHOR_LOGGING_LIBS) \
+                           -lpam \
+                           -lpam_misc \
                            -version-info 0:0:0 -shared
 
 liboemhandler_la_CXXFLAGS = $(SYSTEMD_CFLAGS) \
