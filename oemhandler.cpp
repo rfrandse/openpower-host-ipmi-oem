@@ -288,6 +288,10 @@ ipmi_ret_t ipmi_ibm_oem_bmc_factory_reset(ipmi_netfn_t netfn, ipmi_cmd_t cmd,
         return IPMI_CC_UNSPECIFIED_ERROR;
     }
 
+    // Wait a few seconds for service that sets the reset env variable to
+    // complete before the BMC is rebooted
+    std::this_thread::sleep_for(std::chrono::seconds(10));
+
     // Reboot BMC
     service = getService(bus, STATE_BMC_PATH, STATE_BMC_INTERFACE);
     if (service.empty())
